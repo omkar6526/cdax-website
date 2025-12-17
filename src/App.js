@@ -5,6 +5,7 @@ import ForBusiness from "./pages/ForBusiness";
 import AppLink from "./pages/Applink";
 import Footer from "./components/Footer";
 import HomeSections from "./pages/Home";
+import Features from "./pages/Features";
 
 
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/apps" element={<Apps />} />
             <Route path="/forbusiness" element={<ForBusiness />} />
             <Route path="/downlod" element={<AppLink />} />
+            <Route path="/featuers" element={<Features />} />
           </Routes>
         </main>
 

@@ -19,9 +19,9 @@ export default function Footer() {
           <div>
             <h3 className="text-white font-semibold mb-4">Courses</h3>
             <ul className="space-y-2 text-gray-400 text-sm">
-              <li className="hover:text-white cursor-pointer">Web Development</li>
               <li className="hover:text-white cursor-pointer">Java Programming</li>
-              <li className="hover:text-white cursor-pointer">Data Science</li>
+              <li className="hover:text-white cursor-pointer">Python Programming</li>
+              <li className="hover:text-white cursor-pointer">Flutter</li>
               <li className="hover:text-white cursor-pointer">UI / UX Design</li>
             </ul>
           </div>
