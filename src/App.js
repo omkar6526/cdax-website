@@ -6,15 +6,16 @@ import AppLink from "./pages/Applink";
 import Footer from "./components/Footer";
 import HomeSections from "./pages/Home";
 import Features from "./pages/Features";
-import ContactUs from "./components/ContactUs";
 import HelpPage from "./pages/Help";
 import Privacy from "./pages/Privacy";
+import ScrollToTop from "./components/ScrollToTop";
 
 
 
 function App() {
   return (
     <Router>
+      <ScrollToTop /> 
       <div className="min-h-screen flex flex-col">
         
         {/* NAVBAR */}

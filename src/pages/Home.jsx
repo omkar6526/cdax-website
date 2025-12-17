@@ -7,6 +7,7 @@ import TrustedBy from "../components/TrustedBy";
 import SmallHero from "../components/SmallHero";
 import WhyCDaX from "../components/WhyCDaX";
 import ContactUs from "../components/ContactUs";
+import { Link } from "react-router-dom";
 
 /* GLOBAL ANIMATION VARIANTS */
 
@@ -73,7 +74,7 @@ export default function HomeSections() {
         >
           Start Your Learning Journey Today
         </motion.h2>
-
+        <Link  to="/downlod">
         <motion.button
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.9 }}
@@ -81,6 +82,7 @@ export default function HomeSections() {
         >
           Get Started
         </motion.button>
+        </Link>
       </section>
 
       {/*  SUCCESS STORIES  */}
@@ -117,7 +119,7 @@ export default function HomeSections() {
 
       {/* TRUSTED */}
       <TrustedBy />
-      
+
       {/* CONTACT US */}
       <ContactUs/>
     </div>
