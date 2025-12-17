@@ -1,12 +1,13 @@
+// src/pages/HelpPage.jsx
 import { motion } from "framer-motion";
 
-export default function ContactUs() {
+export default function HelpPage() {
   return (
     <motion.section
-      initial={{ opacity: 0, y: 60 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-      viewport={{ once: false }}
+    //   initial={{ opacity: 0, y: 60 }}
+    //   whileInView={{ opacity: 1, y: 0 }}
+    //   transition={{ duration: 1 }}
+    //   viewport={{ once: false }}
       className="py-16 bg-blue-50 border-t border-gray-200"
     >
       <div className="container mx-auto px-6">
@@ -65,6 +66,6 @@ export default function ContactUs() {
 
         </div>
       </div>
-    </motion.section>
+     </motion.section>
   );
 }

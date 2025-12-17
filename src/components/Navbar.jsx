@@ -38,11 +38,11 @@ export default function Navbar() {
           </div>
 
           {/* CENTER */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
+          <nav className="hidden md:flex items-center gap-20 text-sm font-medium text-gray-700">
             <a href="/" className="hover:text-black">Home</a>
             <a href="/featuers" className="hover:text-black">Features</a>
-            <a href="#privacy" className="hover:text-black">Privacy</a>
-            <a href="#help" className="hover:text-black">Help</a>
+            <a href="/privacy" className="hover:text-black">Privacy</a>
+            <a href="/help" className="hover:text-black">Help</a>
             <a href="/forbusiness" className="hover:text-black">For Business</a>
             <a href="/Apps" className="hover:text-black">Apps</a>
           </nav>

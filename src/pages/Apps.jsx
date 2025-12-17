@@ -2,13 +2,21 @@ import { motion } from "framer-motion";
 import illustration from "../assets/Apps/chatbot.gif";
 import consistent from "../assets/cdaxxlogo.png";
 import AppOverView from "../components/AppOverView";
+import TrustedBy from "../components/TrustedBy";
+// welcome img
 import start from "../assets/screens/start.PNG";
 import start1 from "../assets/screens/start1.PNG";
 import start2 from "../assets/screens/start2.PNG";
 import start3 from "../assets/screens/start3.PNG";
+// login img
+import login from "../assets/screens/login.PNG";
+// dashbord img
 import dashbord from "../assets/screens/dashbord.PNG";
 import bfgdashbord from "../assets/screens/beforlogin.PNG";
-import TrustedBy from "../components/TrustedBy";
+// Courses img
+import course from "../assets/screens/courses.PNG";
+import course1 from "../assets/screens/courseDetails.PNG";
+import course2 from "../assets/screens/videos.PNG";
 
 // APP OVERVIEW SCREENS
 const sections = [
@@ -19,7 +27,7 @@ const sections = [
     reverse: false,
   },
   {
-    images: [dashbord, bfgdashbord],
+    images: [login],
     title: "Login page",
     desc: "Secure and smooth login experience for users.",
     reverse: true,
@@ -31,8 +39,8 @@ const sections = [
     reverse: false,
   },
   {
-    images: [start, start1, start2, start3],
-    title: "Placement pages",
+    images: [course, course1,course2],
+    title: "Courses Pages",
     desc: "Placement preparation with structured flow.",
     reverse: true,
   },
@@ -156,7 +164,7 @@ export default function Apps() {
 
       {/* ABOUT APP */}
       <section className="bg-[#b5d5ff] px-4 sm:px-6 py-20">
-        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-32 ">
           <motion.div
             variants={staggerContainer}
             initial="hidden"
@@ -178,12 +186,12 @@ export default function Apps() {
           <motion.div
             variants={floatingImage}
             animate="animate"
-            className="flex justify-center"
+            className="flex justify-center  "
           >
             <img
               src={consistent}
               alt="logo"
-              className="w-64 sm:w-72 md:w-80 rounded-2xl"
+              className="w-64 sm:w-72 md:w-80 rounded-2xl "
             />
           </motion.div>
         </div>
