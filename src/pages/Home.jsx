@@ -8,6 +8,8 @@ import SmallHero from "../components/SmallHero";
 import WhyCDaX from "../components/WhyCDaX";
 import ContactUs from "../components/ContactUs";
 import { Link } from "react-router-dom";
+import logo from "../assets/cdaxxlogo.png";
+import ChatBot from "../components/ChatBot";
 
 /* GLOBAL ANIMATION VARIANTS */
 
@@ -43,7 +45,7 @@ const floatingImage = {
 export default function HomeSections() {
   return (
     <div className="bg-[#d8d8d8] overflow-hidden font-body">
-
+      <ChatBot />
       {/*  HERO GLOW */}
       <section className="relative">
         <motion.div
@@ -56,32 +58,46 @@ export default function HomeSections() {
           <BigHero />
         </div>
       </section>
-       <LearningExperience/>
+      <LearningExperience />
 
       {/* MAIN HERO */}
-      <SmallHero/>
+      <SmallHero />
 
       {/* WHY CDAX */}
-      <WhyCDaX/>
+      <WhyCDaX />
 
-  {/* CDaX  */}
-      <section className="py-28 bg-gradient-to-r from-blue-500 to-gray-300 text-center text-white">
+      {/* CDaX  */}
+      <section className="py-20 bg-gradient-to-r from-blue-500 to-gray-300 text-center text-white">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-4xl font-bold mb-8 font-heading"
         >
-          Start Your Learning Journey Today
+          Start Your Learning Journey Today On
         </motion.h2>
-        <Link  to="/downlod">
-        <motion.button
-          whileHover={{ scale: 1.15 }}
-          whileTap={{ scale: 0.9 }}
-          className="px-12 py-4 bg-blue-700 text-black-600 font-semibold rounded-full shadow-2xl"
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex justify-center mb-10"
         >
-          Get Started
-        </motion.button>
+          <img
+            src={logo}
+            alt="CDaX Logo"
+            className="h-20 md:h-24 w-auto drop-shadow-xl"
+          />
+        </motion.div>
+
+        <Link to="/downlod">
+          <motion.button
+            whileHover={{ scale: 1.15 }}
+            whileTap={{ scale: 0.9 }}
+            className="px-12 py-4 bg-blue-700 text-black-600 font-semibold rounded-full shadow-2xl"
+          >
+            Get Started
+          </motion.button>
         </Link>
       </section>
 
@@ -121,7 +137,7 @@ export default function HomeSections() {
       <TrustedBy />
 
       {/* CONTACT US */}
-      <ContactUs/>
+      <ContactUs />
     </div>
   );
 }

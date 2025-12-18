@@ -27,7 +27,7 @@ const sections = [
     reverse: false,
   },
   {
-    images: [login],
+    images: [login,login],
     title: "Login page",
     desc: "Secure and smooth login experience for users.",
     reverse: true,
@@ -206,7 +206,7 @@ export default function Apps() {
           } items-center gap-12 px-4 sm:px-6 md:px-16 py-20`}
         >
           <div className="flex-1">
-            <AppOverView images={item.images} />
+            <AppOverView images={item.images} from={item.reverse ? "right" : "left"} />
           </div>
 
           <div className="flex-1 text-center md:text-left">

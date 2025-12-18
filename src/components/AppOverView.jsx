@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function AppOverView({ images = [], interval = 2000 }) {
+export default function AppOverView({
+  images = [],
+  interval = 3000,
+  from = "left", 
+}) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
@@ -14,10 +18,12 @@ export default function AppOverView({ images = [], interval = 2000 }) {
     return () => clearInterval(timer);
   }, [images, interval]);
 
+  // direction logic
+  const xFrom = from === "right" ? 80 : -80;
+  const xExit = from === "right" ? -80 : 80;
+
   return (
     <div className="relative w-full max-w-md md:max-w-lg lg:max-w-xl mx-auto">
-      
-      {/* MOBILE SCREEN FRAME */}
       <div className="relative w-full h-[340px] md:h-[520px] lg:h-[500px]">
         <AnimatePresence mode="wait">
           <motion.img
@@ -25,15 +31,13 @@ export default function AppOverView({ images = [], interval = 2000 }) {
             src={images[index]}
             alt="App screen"
             className="absolute inset-0 w-full h-full object-contain rounded-3xl drop-shadow-2xl"
-            initial={{ opacity: 0, x: 80 }}
+            initial={{ opacity: 0, x: xFrom }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -80 }}
+            exit={{ opacity: 0, x: xExit }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
           />
         </AnimatePresence>
       </div>
-
     </div>
   );
 }
-
