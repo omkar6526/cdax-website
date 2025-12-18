@@ -17,6 +17,7 @@ import bfgdashbord from "../assets/screens/beforlogin.PNG";
 import course from "../assets/screens/courses.PNG";
 import course1 from "../assets/screens/courseDetails.PNG";
 import course2 from "../assets/screens/videos.PNG";
+import { Link } from "react-router-dom";
 
 // APP OVERVIEW SCREENS
 const sections = [
