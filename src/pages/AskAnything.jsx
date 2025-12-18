@@ -20,8 +20,6 @@ export default function AskAnything() {
     if (!input.trim()) return;
 
     const userMsg = { sender: "user", text: input };
-    setMessages((prev) => [...prev, userMsg]);
-
     const botMsg = { sender: "bot", text: getBotReply(input) };
     setMessages((prev) => [...prev, userMsg, botMsg]);
 
