@@ -106,6 +106,7 @@ export default function Apps() {
             <p className="text-gray-700 text-base sm:text-lg">
               Start learning smarter with CDaX across your devices.
             </p>
+            <Link to="/downlod">
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -114,6 +115,7 @@ export default function Apps() {
             >
               Download for Windows
             </motion.a>
+            </Link>
           </motion.div>
 
           <motion.div
