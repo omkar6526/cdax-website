@@ -30,7 +30,7 @@ export default function AskAnything() {
     <div className="min-h-screen bg-blue-50 flex flex-col items-center py-10">
       <h1 className="text-3xl font-bold mb-6">Ask Anything</h1>
 
-      <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-4 flex flex-col gap-3 h-[500px] overflow-y-auto">
+      <div className="w-full max-w-xl bg-white rounded-xl shadow-lg p-4 flex flex-col gap-3 h-[350px] overflow-y-auto">
         {messages.map((msg, i) => (
           <div
             key={i}
