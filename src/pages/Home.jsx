@@ -5,11 +5,12 @@ import BigHero from "../components/BigHeroCarousel";
 import LearningExperience from "../components/LearningExperience";
 import TrustedBy from "../components/TrustedBy";
 import SmallHero from "../components/SmallHero";
-import WhyCDaX from "../components/WhyCDaX";
+import WhyCDaX from "../components/PopularCourse";
 import ContactUs from "../components/ContactUs";
 import { Link } from "react-router-dom";
 import logo from "../assets/cdaxxlogo.png";
 import ChatBot from "../components/ChatBot";
+import PopularCourse from "../components/PopularCourse";
 
 /* GLOBAL ANIMATION VARIANTS */
 
@@ -64,15 +65,15 @@ export default function HomeSections() {
       <SmallHero />
 
       {/* WHY CDAX */}
-      <WhyCDaX />
+      <PopularCourse />
 
       {/* CDaX  */}
-      <section className="py-20 bg-gradient-to-r from-blue-500 to-gray-300 text-center text-white">
+      <section className="py-16 bg-gradient-to-r bg-[#b5d5ff] text-center text-white">
         <motion.h2
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="text-4xl font-bold mb-8 font-heading"
+          className="text-4xl font-bold mb-2 font-heading"
         >
           Start Your Learning Journey Today On
         </motion.h2>
@@ -81,7 +82,7 @@ export default function HomeSections() {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex justify-center mb-10"
+          className="flex justify-center mb-4"
         >
           <img
             src={logo}
@@ -94,7 +95,7 @@ export default function HomeSections() {
           <motion.button
             whileHover={{ scale: 1.15 }}
             whileTap={{ scale: 0.9 }}
-            className="px-12 py-4 bg-blue-700 text-black-600 font-semibold rounded-full shadow-2xl"
+            className="px-10 py-4 bg-blue-700 text-black-600 font-semibold rounded-full shadow-2xl"
           >
             Get Started
           </motion.button>

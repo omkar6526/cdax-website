@@ -67,7 +67,7 @@ export default function Navbar() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="hidden sm:block px-5 py-2 rounded-full border border-blue-600 text-sm font-medium hover:bg-blue-300"
+                className="hidden sm:block px-6 py-3 rounded-full border border-blue-600 text-sm font-medium hover:bg-blue-300"
               >
                 Cdax Web App
               </motion.button>
@@ -79,7 +79,7 @@ export default function Navbar() {
                 whileHover={{ scale: 1.08 }}
                 whileTap={{ scale: 0.92 }}
                 transition={{ type: "spring", stiffness: 300 }}
-                className="px-5 py-2 rounded-full bg-blue-500 text-white text-sm font-semibold hover:bg-blue-600"
+                className="px-6 py-3 rounded-full bg-blue-500 text-white text-sm font-semibold hover:bg-blue-600"
               >
                 Get CdaxApp
               </motion.button>
