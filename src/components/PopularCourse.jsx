@@ -24,14 +24,16 @@ export default function PopularCourse() {
   const [animate, setAnimate] = useState(true);
   const [isPaused, setIsPaused] = useState(false);
 
+  /* Auto slide */
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
       setIndex((prev) => prev + 1);
-    }, 3000);
+    }, 2500);
     return () => clearInterval(timer);
   }, [isPaused]);
 
+  /* Infinite loop logic */
   useEffect(() => {
     if (index === courses.length) {
       setTimeout(() => {
@@ -46,9 +48,11 @@ export default function PopularCourse() {
   return (
     <section className="py-28 bg-blue-50">
       <div className="max-w-7xl mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold mb-12">Our Popular Courses</h2>
+        <h2 className="text-4xl font-bold mb-12">
+          Our Popular Courses
+        </h2>
 
-        <div className=" py-6">
+        <div className="py-6 overflow-hidden">
           <motion.div
             className="flex will-change-transform"
             animate={{ x: `-${index * (100 / 3)}%` }}
@@ -65,26 +69,55 @@ export default function PopularCourse() {
                 onMouseEnter={() => setIsPaused(true)}
                 onMouseLeave={() => setIsPaused(false)}
               >
-                <motion.button
-                  onClick={() => navigate(course.link)}
-                  whileHover={{
-                    scale: 1.05,
-                    zIndex: 20,
-                    boxShadow: "0 30px 60px rgba(0,0,0,0.18)",
-                    borderColor: "#2563eb",
-                  }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="relative w-full bg-white p-8 rounded-2xl shadow-md flex flex-col items-center border-2 border-transparent cursor-pointer focus:outline-none"
-                >
-                  <img
-                    src={course.logo}
-                    alt={course.name}
-                    className="w-20 h-20 mb-4 object-contain"
-                  />
-                  <h3 className="text-lg font-semibold">
-                    {course.name}
-                  </h3>
-                </motion.button>
+                {/* 3D FLIP CARD */}
+                <div className="relative h-64 [perspective:1200px]">
+                  <motion.div
+                    className="relative w-full h-full rounded-2xl"
+                    whileHover={{ rotateY: 180 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    {/* FRONT SIDE */}
+                    <div
+                      className="absolute inset-0 bg-white p-8 rounded-2xl shadow-md flex flex-col items-center justify-center border-2 border-transparent"
+                      style={{ backfaceVisibility: "hidden" }}
+                    >
+                      <img
+                        src={course.logo}
+                        alt={course.name}
+                        className="w-20 h-20 mb-4 object-contain"
+                      />
+                      <h3 className="text-lg font-semibold">
+                        {course.name}
+                      </h3>
+                    </div>
+
+                    {/* BACK SIDE */}
+                    <div
+                      className="absolute inset-0 bg-blue-400 text-white p-8 rounded-2xl flex flex-col items-center justify-center"
+                      style={{
+                        backfaceVisibility: "hidden",
+                        transform: "rotateY(180deg)",
+                      }}
+                    >
+                      <h3 className="text-xl font-bold mb-3">
+                        {course.name}
+                      </h3>
+
+                      <p className="text-sm text-center mb-4 opacity-90">
+                        Beginner to Advanced <br />
+                        Live Projects • Certificate
+                      </p>
+
+                      <button
+                        onClick={() => navigate(course.link)}
+                        className="px-6 py-2 bg-white text-blue-600 rounded-lg font-semibold hover:bg-gray-100 transition"
+                      >
+                        View Course
+                      </button>
+                    </div>
+                  </motion.div>
+                </div>
               </div>
             ))}
           </motion.div>
