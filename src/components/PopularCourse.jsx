@@ -100,10 +100,17 @@ export default function PopularCourse() {
                   setPaused(false);
                   setActiveCard(null);
                 }}
-                onClick={() =>
-                  window.innerWidth < 1024 &&
-                  setActiveCard(activeCard === i ? null : i)
-                }
+                onClick={() => {
+                  if (window.innerWidth < 1024) {
+                    if (activeCard === i) {
+                      setActiveCard(null);
+                      setPaused(false);
+                    } else {
+                      setActiveCard(i);
+                      setPaused(true);
+                    }
+                  }
+                }}
               >
                 <div className="h-64 perspective">
                   <motion.div

@@ -138,12 +138,12 @@ export default function BigHero() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                 className="flex items-center gap-2 px-20 py-1 sm:px-5 sm:py-2 bg-blue-100 hover:bg-blue-300 text-black rounded-lg border border-white/20"
+                 className="flex items-center gap-2 px-12 py-1 sm:px-5 sm:py-2 bg-blue-100 hover:bg-blue-300 text-black rounded-lg border border-white/20"
                  >
                   <img
                     src={appStoreLogo}
-                    alt=" App Store "
-                    className="w-7 h-6"
+                    alt="App Store"
+                    className="w-6 h-6"
                   />
                   <div className="flex flex-col items-start">
                     <span className="text-sm font-semibold">App Store</span>
