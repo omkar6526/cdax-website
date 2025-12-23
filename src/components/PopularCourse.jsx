@@ -5,33 +5,23 @@ import python from "../assets/course/PYTHON.png";
 import flutter from "../assets/course/FLUTTER.png";
 import UiUx from "../assets/course/UiUx.jpg";
 import AiMl from "../assets/course/AiMll.png";
-import googlePlayLogo from "../assets/playstorelogo.png";
-import appStoreLogo from "../assets/appstorelogo.png";
+import SQL from "../assets/course/SQL.png";
+import ReactLogo from "../assets/course/REACT.png";
 
 export default function PopularCourse() {
   const [index, setIndex] = useState(0);
-  const [animate, setAnimate] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [device, setDevice] = useState("desktop");
-  const [flipped, setFlipped] = useState(null);
-  const [cardsToShow, setCardsToShow] = useState(3);
+  const [activeCard, setActiveCard] = useState(null);
 
-  /*  DEVICE DETECTION & RESPONSIVE CARDS */
+  /* ✅ DEVICE DETECTION */
   useEffect(() => {
     const ua = navigator.userAgent;
-    if (/android/i.test(ua)) setDevice("android");
-    else if (/iPhone|iPad|iPod/i.test(ua)) setDevice("ios");
-    else setDevice("desktop");
-
-    const handleResize = () => {
-      if (window.innerWidth < 640) setCardsToShow(1); // mobile
-      else if (window.innerWidth < 1024) setCardsToShow(2); // tablet
-      else setCardsToShow(3); // desktop
-    };
-
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    if (/android|iphone|ipad|ipod/i.test(ua)) {
+      setDevice("mobile");
+    } else {
+      setDevice("desktop");
+    }
   }, []);
 
   const courses = [
@@ -40,75 +30,83 @@ export default function PopularCourse() {
     { name: "Java", logo: java },
     { name: "Python", logo: python },
     { name: "Flutter", logo: flutter },
+    { name: "SQL", logo: SQL },
+    { name: "React", logo: ReactLogo },
   ];
 
-  const extendedCourses = [...courses, ...courses];
-
-  /*  AUTO-SLIDE CAROUSEL */
+  /* ✅ AUTO SLIDER */
   useEffect(() => {
-    if (isPaused) return;
+    if (paused) return;
     const timer = setInterval(() => {
-      setIndex((prev) => prev + 1);
+      setIndex((prev) => (prev + 1) % courses.length);
     }, 2500);
     return () => clearInterval(timer);
-  }, [isPaused]);
-
-  useEffect(() => {
-    if (index === courses.length) {
-      setTimeout(() => {
-        setAnimate(false);
-        setIndex(0);
-      }, 700);
-    } else {
-      setAnimate(true);
-    }
-  }, [index]);
+  }, [paused]);
 
   return (
-    <section className="py-28 bg-blue-50">
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        <h2 className="text-4xl font-bold mb-12">Our Popular Courses</h2>
+    <section className="py-24 bg-blue-50">
+      <div className="max-w-7xl mx-auto px-4">
+        <h2 className="text-4xl font-bold text-center mb-12">
+          Our Popular Courses
+        </h2>
 
-        <div className="py-6 overflow-hidden">
+        <div className="overflow-hidden">
           <motion.div
             className="flex"
             animate={{
-              transform: `translate3d(-${index * (100 / cardsToShow)}%, 0, 0)`,
+              x:
+                device === "mobile"
+                  ? `-${index * 100}%`
+                  : `-${index * 33.33}%`,
             }}
-            transition={animate ? { duration: 0.8, ease: "easeInOut" } : { duration: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            {extendedCourses.map((course, i) => (
+            {courses.map((course, i) => (
               <div
                 key={i}
-                className={`basis-1/${cardsToShow} shrink-0 px-5`}
-                onMouseEnter={() => device === "desktop" && setIsPaused(true)}
-                onMouseLeave={() => device === "desktop" && setIsPaused(false)}
+                className="w-full sm:w-1/2 lg:w-1/3 px-4 shrink-0"
+                onMouseEnter={() => {
+                  setPaused(true);
+                  if (device === "desktop") setActiveCard(i);
+                }}
+                onMouseLeave={() => {
+                  setPaused(false);
+                  if (device === "desktop") setActiveCard(null);
+                }}
+                onClick={() => {
+                  if (device === "mobile") {
+                    setActiveCard(activeCard === i ? null : i);
+                  }
+                }}
               >
-                <div className="relative h-64 [perspective:1200px]">
+                <div className="h-64 perspective">
                   <motion.div
-                    className="relative w-full h-full rounded-2xl cursor-pointer"
-                    animate={{ rotateY: flipped === i ? 180 : 0 }}
-                    transition={{ duration: 0.7 }}
+                    className="relative w-full h-full"
+                    animate={{ rotateY: activeCard === i ? 180 : 0 }}
+                    transition={{ duration: 0.7, ease: "easeInOut" }}
                     style={{
                       transformStyle: "preserve-3d",
-                      pointerEvents: "auto", 
                     }}
-                    onMouseEnter={() => device === "desktop" && setFlipped(i)}
-                    onMouseLeave={() => device === "desktop" && setFlipped(null)}
-                    onClick={() => device !== "desktop" && setFlipped(flipped === i ? null : i)}
                   >
                     {/* FRONT */}
                     <div
-                      className="absolute inset-0 bg-white rounded-2xl shadow-md flex flex-col items-center justify-center"
+                      className="absolute inset-0 bg-white rounded-2xl flex flex-col items-center justify-center"
                       style={{ backfaceVisibility: "hidden" }}
                     >
-                      <img src={course.logo} alt={course.name} className="w-20 h-20 mb-4" />
-                      <h3 className="font-semibold">{course.name}</h3>
+                      <img src={course.logo} className="w-20 h-20 mb-4" />
+                      <h3 className="font-semibold text-lg">
+                        {course.name}
+                      </h3>
+                      {device === "mobile" && (
+                        <p className="text-xs mt-2 text-gray-500">
+                          Tap to view details
+                        </p>
+                      )}
                     </div>
 
                     {/* BACK */}
                     <div
-                      className="absolute inset-0 bg-blue-400 text-white rounded-2xl flex flex-col items-center justify-center gap-3"
+                      className="absolute inset-0 bg-blue-400 text-white rounded-2xl flex flex-col items-center justify-center gap-3 px-4"
                       style={{
                         backfaceVisibility: "hidden",
                         transform: "rotateY(180deg)",
@@ -118,43 +116,9 @@ export default function PopularCourse() {
                         Beginner to Advanced <br />
                         Live Projects • Certificate
                       </p>
-
-                      {/* ANDROID */}
-                      {device === "android" && (
-                        <a
-                          href="https://play.google.com/store"
-                          target="_blank"
-                          className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded"
-                        >
-                          <img src={googlePlayLogo} className="w-6" />
-                          Google Play
-                        </a>
-                      )}
-
-                      {/* IOS */}
-                      {device === "ios" && (
-                        <a
-                          href="https://apps.apple.com"
-                          target="_blank"
-                          className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded"
-                        >
-                          <img src={appStoreLogo} className="w-6" />
-                          App Store
-                        </a>
-                      )}
-
-                      {/* DESKTOP → SHOW BOTH */}
-                      {device === "desktop" && (
-                        <div className="flex gap-3">
-                          <a
-                            href="https://play.google.com/store"
-                            target="_blank"
-                            className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded"
-                          >
-                            Download Now
-                          </a>
-                        </div>
-                      )}
+                      <button className="bg-white text-black px-4 py-2 rounded">
+                        Download Now
+                      </button>
                     </div>
                   </motion.div>
                 </div>
@@ -163,6 +127,14 @@ export default function PopularCourse() {
           </motion.div>
         </div>
       </div>
+
+      <style>
+        {`
+          .perspective {
+            perspective: 1200px;
+          }
+        `}
+      </style>
     </section>
   );
 }
