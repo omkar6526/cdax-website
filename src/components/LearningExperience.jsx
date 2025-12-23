@@ -18,14 +18,20 @@ import videoStart from "../assets/screenVideo/Welcome.mp4";
 
 export default function LearningExperience() {
   const videoRefs = useRef([]);
+   const hoverTimeout = useRef([]);
 
   const handleMouseEnter = (index) => {
-    const video = videoRefs.current[index];
-    if (video) {
-      video.currentTime = 0;
-       video.playbackRate = 2;
-      video.play();
-    }
+    hoverTimeout.current[index] = setTimeout(() => {
+      const video = videoRefs.current[index];
+      if (video) {
+        video.currentTime = 0;
+        video.playbackRate = 2;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {}); 
+        }
+      }
+    }, 80); 
   };
 
   const handleMouseLeave = (index) => {

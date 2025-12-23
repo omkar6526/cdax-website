@@ -27,7 +27,7 @@ export default function ContactUs() {
             </p>
 
             <div className="mt-8 text-gray-700 space-y-2">
-              <p className="font-semibold">CDaX Learning Pvt Ltd</p>
+              <p className="font-semibold">Crbix Solution (OPC) Pvt.Ltd </p>
               <p>+91 987xxxxxxx</p>
               <p>info@crbix.in</p>
             </div>
