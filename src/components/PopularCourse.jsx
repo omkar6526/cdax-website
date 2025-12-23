@@ -16,7 +16,7 @@ export default function PopularCourse() {
   const [flipped, setFlipped] = useState(null);
   const [cardsToShow, setCardsToShow] = useState(3);
 
-  /* ✅ DEVICE DETECTION & RESPONSIVE CARDS */
+  /*  DEVICE DETECTION & RESPONSIVE CARDS */
   useEffect(() => {
     const ua = navigator.userAgent;
     if (/android/i.test(ua)) setDevice("android");
@@ -44,7 +44,7 @@ export default function PopularCourse() {
 
   const extendedCourses = [...courses, ...courses];
 
-  /* ✅ AUTO-SLIDE CAROUSEL */
+  /*  AUTO-SLIDE CAROUSEL */
   useEffect(() => {
     if (isPaused) return;
     const timer = setInterval(() => {
@@ -91,7 +91,7 @@ export default function PopularCourse() {
                     transition={{ duration: 0.7 }}
                     style={{
                       transformStyle: "preserve-3d",
-                      pointerEvents: "auto", // ensures hover works
+                      pointerEvents: "auto", 
                     }}
                     onMouseEnter={() => device === "desktop" && setFlipped(i)}
                     onMouseLeave={() => device === "desktop" && setFlipped(null)}
