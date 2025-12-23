@@ -11,17 +11,20 @@ import ReactLogo from "../assets/course/REACT.png";
 export default function PopularCourse() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [device, setDevice] = useState("desktop");
   const [activeCard, setActiveCard] = useState(null);
+  const [cardsPerView, setCardsPerView] = useState(3);
+  const [animate, setAnimate] = useState(true);
 
-  /* ✅ DEVICE DETECTION */
+  const updateCardsPerView = () => {
+    if (window.innerWidth < 640) return setCardsPerView(1);
+    if (window.innerWidth < 1024) return setCardsPerView(2);
+    setCardsPerView(3);
+  };
+
   useEffect(() => {
-    const ua = navigator.userAgent;
-    if (/android|iphone|ipad|ipod/i.test(ua)) {
-      setDevice("mobile");
-    } else {
-      setDevice("desktop");
-    }
+    updateCardsPerView();
+    window.addEventListener("resize", updateCardsPerView);
+    return () => window.removeEventListener("resize", updateCardsPerView);
   }, []);
 
   const courses = [
@@ -34,14 +37,43 @@ export default function PopularCourse() {
     { name: "React", logo: ReactLogo },
   ];
 
-  /* ✅ AUTO SLIDER */
+  const extendedCourses = [...courses, ...courses];
+
+  /* AUTO SLIDE */
   useEffect(() => {
     if (paused) return;
     const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % courses.length);
+      setIndex((prev) => prev + 1);
     }, 2500);
     return () => clearInterval(timer);
   }, [paused]);
+
+  /*  SEAMLESS RESET */
+  useEffect(() => {
+    if (index === courses.length) {
+      setTimeout(() => {
+        setAnimate(false);
+        setIndex(0);
+      }, 600);
+    } else {
+      setAnimate(true);
+    }
+  }, [index]);
+
+  const getDownloadLink = () => {
+    const ua = navigator.userAgent.toLowerCase();
+
+    if (ua.includes("iphone") || ua.includes("ipad") || ua.includes("ipod")) {
+      return "https://apps.apple.com";
+    }
+    if (ua.includes("mac os") || ua.includes("macintosh")) {
+      return "https://apps.apple.com";
+    }
+    if (ua.includes("android")) {
+      return "https://play.google.com/store";
+    }
+    return "https://play.google.com/store";
+  };
 
   return (
     <section className="py-24 bg-blue-50">
@@ -53,60 +85,43 @@ export default function PopularCourse() {
         <div className="overflow-hidden">
           <motion.div
             className="flex"
-            animate={{
-              x:
-                device === "mobile"
-                  ? `-${index * 100}%`
-                  : `-${index * 33.33}%`,
-            }}
-            transition={{ duration: 0.6 }}
+            animate={{ x: `-${index * (100 / cardsPerView)}%` }}
+            transition={animate ? { duration: 0.6 } : { duration: 0 }}
           >
-            {courses.map((course, i) => (
+            {extendedCourses.map((course, i) => (
               <div
                 key={i}
                 className="w-full sm:w-1/2 lg:w-1/3 px-4 shrink-0"
                 onMouseEnter={() => {
                   setPaused(true);
-                  if (device === "desktop") setActiveCard(i);
+                  setActiveCard(i);
                 }}
                 onMouseLeave={() => {
                   setPaused(false);
-                  if (device === "desktop") setActiveCard(null);
+                  setActiveCard(null);
                 }}
-                onClick={() => {
-                  if (device === "mobile") {
-                    setActiveCard(activeCard === i ? null : i);
-                  }
-                }}
+                onClick={() =>
+                  window.innerWidth < 1024 &&
+                  setActiveCard(activeCard === i ? null : i)
+                }
               >
                 <div className="h-64 perspective">
                   <motion.div
                     className="relative w-full h-full"
                     animate={{ rotateY: activeCard === i ? 180 : 0 }}
-                    transition={{ duration: 0.7, ease: "easeInOut" }}
-                    style={{
-                      transformStyle: "preserve-3d",
-                    }}
+                    transition={{ duration: 0.7 }}
+                    style={{ transformStyle: "preserve-3d" }}
                   >
-                    {/* FRONT */}
                     <div
                       className="absolute inset-0 bg-white rounded-2xl flex flex-col items-center justify-center"
                       style={{ backfaceVisibility: "hidden" }}
                     >
                       <img src={course.logo} className="w-20 h-20 mb-4" />
-                      <h3 className="font-semibold text-lg">
-                        {course.name}
-                      </h3>
-                      {device === "mobile" && (
-                        <p className="text-xs mt-2 text-gray-500">
-                          Tap to view details
-                        </p>
-                      )}
+                      <h3 className="font-semibold">{course.name}</h3>
                     </div>
 
-                    {/* BACK */}
                     <div
-                      className="absolute inset-0 bg-blue-400 text-white rounded-2xl flex flex-col items-center justify-center gap-3 px-4"
+                      className="absolute inset-0 bg-blue-400 text-white rounded-2xl flex flex-col items-center justify-center gap-4"
                       style={{
                         backfaceVisibility: "hidden",
                         transform: "rotateY(180deg)",
@@ -116,8 +131,12 @@ export default function PopularCourse() {
                         Beginner to Advanced <br />
                         Live Projects • Certificate
                       </p>
-                      <button className="bg-white text-black px-4 py-2 rounded">
-                        Download Now
+
+                      <button
+                        onClick={() => window.open(getDownloadLink(), "_blank")}
+                        className="bg-white text-black px-5 py-2 rounded shadow hover:scale-105 transition"
+                      >
+                        Download App
                       </button>
                     </div>
                   </motion.div>
@@ -128,13 +147,7 @@ export default function PopularCourse() {
         </div>
       </div>
 
-      <style>
-        {`
-          .perspective {
-            perspective: 1200px;
-          }
-        `}
-      </style>
+      <style>{`.perspective { perspective: 1200px; }`}</style>
     </section>
   );
 }
